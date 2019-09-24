@@ -4,6 +4,7 @@ This is a list of functions that should be completed.
 
 from typing import Any
 from typing import List
+import string
 
 
 class OurAwesomeException(Exception):
@@ -133,7 +134,7 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    return dict(zip(range(1, 27), 'abcdefghijklmnopqrstuvwxyz'))
+    return dict(zip(range(1, 27), string.ascii_lowercase))
 
 
 def simple_sort(data: List[int]) -> List[list]:
@@ -146,11 +147,8 @@ def simple_sort(data: List[int]) -> List[list]:
 
     """
     n = len(data)
-
     for i in range(n):
-
         for j in range(0, n - i - 1):
-
             if data[j] > data[j + 1]:
                 data[j], data[j + 1] = data[j + 1], data[j]
     return data
