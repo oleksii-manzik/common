@@ -15,6 +15,7 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     If @first and @second has same value should return True
     In another case should return False
     """
+
     return first == second
 
 
@@ -23,6 +24,7 @@ def is_two_objects_has_same_type(first: Any, second: Any) -> bool:
     If @first and @second has same type should return True
     In another case should return False
     """
+
     return type(first) == type(second)
 
 
@@ -31,6 +33,7 @@ def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
     If @first and @second has same type should return True
     In another case should return False
     """
+
     return first is second
 
 
@@ -134,6 +137,7 @@ def alphabet() -> dict:
         >>> {"a": 1, "b": 2 ...}
     """
     return dict(zip(range(1, 27), 'abcdefghijklmnopqrstuvwxyz'))
+
 
 
 def simple_sort(data: List[int]) -> List[list]:
