@@ -269,7 +269,8 @@ def task_15_list_customers_with_any_order_or_not(cur):
             o.OrderID
         FROM Customers as c
         LEFT JOIN Orders as o
-        ON c.CustomerID = o.CustomerID"""
+        ON c.CustomerID = o.CustomerID
+        ORDER BY c.OrderID"""
     )
     return cur.fetchall()
 
