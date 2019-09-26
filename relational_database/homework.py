@@ -137,9 +137,10 @@ def task_8_count_customers_by_city(cur):
         """SELECT City, COUNT(*) AS Count 
         FROM Customers
         GROUP BY City
+        ORDER BY City
         """
     )
-    return cur.fecthall()
+    return cur.fetchall()
 
 
 def task_9_count_customers_by_country_with_than_10_customers(cur):
@@ -158,7 +159,7 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
         HAVING COUNT(*) > 10
         """
     )
-    return cur.fecthall()
+    return cur.fetchall()
 
 
 def task_10_list_first_10_customers(cur):
@@ -186,7 +187,7 @@ def task_11_list_customers_starting_from_11th(cur):
     """
     cur.execute(
         """SELECT * FROM Customers
-        WHERE CustomerID > 10"""
+        WHERE CustomerID > 11"""
     )
     return cur.fetchall()
 
@@ -201,7 +202,13 @@ def task_12_list_suppliers_from_specified_countries(cur):
     Returns: 8 records
     """
     cur.execute(
-        """SELECT * FROM Suppliers
+        """SELECT 
+            SupplierID,
+            SupplierName,
+            ContactName,
+            City,
+            Country 
+        FROM Suppliers
         WHERE Country IN ('USA', 'UK', 'Japan')"""
     )
     return cur.fetchall()
@@ -270,7 +277,7 @@ def task_15_list_customers_with_any_order_or_not(cur):
         FROM Customers as c
         LEFT JOIN Orders as o
         ON c.CustomerID = o.CustomerID
-        ORDER BY c.OrderID"""
+        ORDER BY o.OrderID"""
     )
     return cur.fetchall()
 
@@ -288,11 +295,12 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
         """SELECT
             c.CustomerName,
             c.Address,
-            c.Country,
-            s.Country,
+            c.Country AS CustomerCountry,
+            s.Country AS SupplierCountry,
             s.SupplierName
         FROM Customers AS c
         FULL OUTER JOIN Suppliers AS s
-        ON c.Country = s.Country"""
+        ON c.Country = s.Country
+        ORDER BY c.Country, s.Country"""
     )
     return cur.fetchall()
