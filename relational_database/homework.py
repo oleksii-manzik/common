@@ -1,6 +1,3 @@
-from typing import List
-
-
 def task_1_add_new_record_to_db(con) -> None:
     """
     Add a record for a new customer from Singapore
@@ -137,7 +134,7 @@ def task_8_count_customers_by_city(cur):
         """SELECT City, COUNT(*) AS Count 
         FROM Customers
         GROUP BY City
-        ORDER BY City
+        ORDER BY City DESC
         """
     )
     return cur.fetchall()
@@ -274,8 +271,8 @@ def task_15_list_customers_with_any_order_or_not(cur):
             c.ContactName,
             c.Country,
             o.OrderID
-        FROM Customers as c
-        LEFT JOIN Orders as o
+        FROM Customers AS c
+        LEFT JOIN Orders AS o
         ON c.CustomerID = o.CustomerID
         ORDER BY o.OrderID"""
     )
