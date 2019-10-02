@@ -14,12 +14,9 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
         fix_names_start_letters([{'name': 'Alex', 'age': 26}, {'name': 'denys', 'age': 89}])
         >>> [{'name': 'Alex', 'age': 26}, {'name': 'Denys', 'age': 89}]
     """
-    return [
-        {
-            'name': d['name'].capitalize(),
-            'age': d['age']
-        } if d.get('name') else {'age': d['age']} for d in data
-    ]
+    return [{'name': d['name'].capitalize(), 'age': d['age']}
+            if d.get('name') else {'age': d['age']}
+            for d in data]
 
 
 def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
@@ -30,9 +27,8 @@ def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
        remove_dict_field([{'name': 'Alex', 'age': 26}, {'name': 'denys', 'age': 89}], 'age')
         >>> [{'name': 'Alex'}, {'name': 'denys'}]
     """
-    return [
-        {k: v for k, v in d.items() if k not in redundant_keys} for d in data
-    ]
+    return [{k: v for k, v in d.items() if k not in redundant_keys}
+            for d in data]
 
 
 def task_3_find_item_via_value(data: DT, value) -> DT:
