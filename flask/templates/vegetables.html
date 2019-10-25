@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<h1>Vegetables list:</h1>
+
+<ul>
+    {% for veg in vegetables %}
+    {% if veg == "beetroot" %}
+        <li>{{veg | upper}}</li>
+    {% else %}
+        <li>{{veg}}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
