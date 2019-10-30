@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block main_content %}
+<h1>{% block title %}{% endblock %}</h1>
+<img src={% block image %}{% endblock %}>
+<p>{% block text %}{% endblock %}</p>
+<p>Number of letters in text: {% block count %}{% endblock %}</p>
+{% endblock %}
