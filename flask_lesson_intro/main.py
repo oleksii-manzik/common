@@ -1,5 +1,4 @@
 from flask import Flask, render_template, abort
-from json.decoder import JSONDecodeError
 from utils import get_data
 
 app = Flask(__name__)
@@ -17,10 +16,9 @@ def get_author_page():
 
 @app.route('/<item>')
 def get_item_page(item):
-    try:
-        data = get_data()
-    except (FileNotFoundError, JSONDecodeError):
-        return render_template('data_problems.html')
+    data = get_data()
+    if not data:
+        abort(404)
 
     if item in [x['title'].replace(' ', '_').lower() for x in data]:
         for x in data:
