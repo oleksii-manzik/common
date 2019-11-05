@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main_content %}
+<p><a href={{url_for('supermarkets.get_add_supermarket_page')}}>Add new supermarket</a></p>
+<ul>
+    {% for supermarket in selected_supermarkets %}
+        {% if session[supermarket[0]] == 'clicked' %}
+            <li>
+                <a href="" style="pointer-events: none; color: currentColor; text-decoration: none; display: inline-block;">{{ supermarket[1] }}</a>
+            </li>
+        {% else %}
+            <li>
+                <a href={{url_for('supermarkets.get_supermarket_page', supermarket_id=supermarket[0])}}>{{ supermarket[1] }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}

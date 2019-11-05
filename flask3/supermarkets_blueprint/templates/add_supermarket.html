@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block main_content %}
+<h1>Add new supermarket</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+    <p>{{form.name.label}} {{form.name()}}</p>
+    <p>{{form.location.label}} {{form.location()}}</p>
+    <p>Upload image {{form.image()}}</p>
+    <p>{{form.submit()}}</p>
+</form>
+{% endblock %}
