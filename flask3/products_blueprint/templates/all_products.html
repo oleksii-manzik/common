@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main_content %}
+<p><a href={{url_for('products.get_add_product_page')}}>Add new product</a></p>
+<ul>
+    {% for product in selected_products %}
+        {% if session[product[0]] == 'clicked' %}
+            <li>
+                <a href="" style="pointer-events: none; color: currentColor; text-decoration: none; display: inline-block;">{{ product[1] }}</a>
+            </li>
+        {% else %}
+            <li>
+                <a href={{url_for('products.get_product_page', product_id=product[0])}}>{{ product[1] }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}
