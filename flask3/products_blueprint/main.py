@@ -38,7 +38,7 @@ def get_all_products_page():
 @products.route('/product/<product_id>')
 def get_product_page(product_id):
     session[product_id] = 'clicked'
-    data = get_data('products_blueprint/product_data.json')
+    data = get_data(DATA_STORAGE)
     product_data = [x for x in data if x["id"] == product_id][0]
     return render_template('product.html', product_data=product_data)
 

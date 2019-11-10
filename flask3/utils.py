@@ -3,10 +3,10 @@ import json
 
 def get_data(json_file):
     try:
-        with open(json_file, 'r') as file:
-            return json.load(file)
+        with open(json_file, 'r') as f:
+            return json.load(f)
     except (FileNotFoundError, json.decoder.JSONDecodeError):
-        return []
+        return {}
 
 
 def update_data(json_file, new_data):
