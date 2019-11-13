@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block main_content %}
+<h1>{{ supermarket_data.name }}</h1>
+<img src={{url_for('supermarkets.static', filename=supermarket_data.img_name)}}>
+<p>{{ supermarket_data.location }}</p>
+{% endblock %}
