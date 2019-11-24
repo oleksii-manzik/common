@@ -1,6 +1,6 @@
 from flask_restful import Api
 from flask import Blueprint
-from flask4.hotel.resources import Rooms, Tenants, Staff
+from hotel.resources import Rooms, Tenants, Staff
 
 api_hotel_bp = Blueprint('Hotel', __name__)
 api_hotel = Api(api_hotel_bp)

@@ -1,10 +1,10 @@
 import sqlite3
 from flask_restful import Resource, marshal_with, abort
-from flask4.hotel import db_utils as du
-from flask4.hotel.base_classes import *
-from flask4.hotel.parsers import *
-from flask4.hotel.fields_formatting import *
-from flask4.hotel.fields_check import *
+from hotel import db_utils as du
+from hotel.base_classes import *
+from hotel.parsers import *
+from hotel.fields_formatting import *
+from hotel.fields_check import *
 
 
 class Rooms(Resource):
@@ -21,6 +21,9 @@ class Rooms(Resource):
     def post(self):
         args = rooms_parser.parse_args(strict=True)
         check_if_all_parameters_is_filled(args)
+        check_if_value_is_positive('number', args)
+        check_if_value_is_positive('level', args)
+        check_if_value_is_positive('price', args)
         try:
             du.add_new_item('Rooms', args)
         except sqlite3.IntegrityError:
@@ -31,8 +34,12 @@ class Rooms(Resource):
     def put(self):
         args = rooms_parser.parse_args(strict=True)
         check_if_key_in_args('number', args, 'room')
-        check_if_all_parameters_is_filled(args)
-        result = du.update_item('Rooms', args.keys(), args.values(), 'number',
+        check_if_value_is_positive('number', args)
+        check_if_value_is_positive('level', args)
+        check_if_value_is_positive('price', args)
+        keys = [key for key in args.keys() if args[key]]
+        values = [value for value in args.values() if value]
+        result = du.update_item('Rooms', keys, values, 'number',
                                 args['number'][0])
         check_if_row_was_affected(result, 'Room', args["number"][0])
         return f'Room {args["number"][0]} was successfully updated'
@@ -59,6 +66,8 @@ class Tenants(Resource):
     def post(self):
         args = tenants_parser.parse_args(strict=True)
         check_if_all_parameters_is_filled(args)
+        check_if_value_is_positive('age', args)
+        check_if_value_is_positive('room_number', args)
         try:
             du.add_new_item('Tenants', args)
         except sqlite3.IntegrityError:
@@ -71,7 +80,11 @@ class Tenants(Resource):
         args = tenants_parser.parse_args(strict=True)
         check_if_key_in_args('passport_id', args, 'tenant')
         check_if_all_parameters_is_filled(args)
-        result = du.update_item('Tenants', args.keys(), args.values(),
+        check_if_value_is_positive('age', args)
+        check_if_value_is_positive('room_number', args)
+        keys = [key for key in args.keys() if args[key]]
+        values = [value for value in args.values() if value]
+        result = du.update_item('Tenants', keys, values,
                                 'passport_id', args['passport_id'][0])
         check_if_row_was_affected(result, 'Tenant', args["passport_id"][0])
         return f'Tenant {args["passport_id"][0]} was successfully updated'
@@ -99,6 +112,7 @@ class Staff(Resource):
     def post(self):
         args = staff_parser.parse_args(strict=True)
         check_if_all_parameters_is_filled(args)
+        check_if_value_is_positive('salary', args)
         try:
             du.add_new_item('Staff', args)
         except sqlite3.IntegrityError:
@@ -110,9 +124,12 @@ class Staff(Resource):
     def put(self):
         args = staff_parser.parse_args(strict=True)
         check_if_key_in_args('passport_id', args, 'worker')
-        result = du.update_item('Staff', args.keys(), args.values(),
-                                'passport_id', args['passport_id'][0])
         check_if_all_parameters_is_filled(args)
+        check_if_value_is_positive('salary', args)
+        keys = [key for key in args.keys() if args[key]]
+        values = [value for value in args.values() if value]
+        result = du.update_item('Staff', keys, values,
+                                'passport_id', args['passport_id'][0])
         check_if_row_was_affected(result, 'Worker', args["passport_id"][0])
         return f'Worker {args["passport_id"][0]} was successfully updated'
 

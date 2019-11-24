@@ -18,3 +18,9 @@ def check_if_row_was_affected(result, item_type, identificator):
     if not result:
         abort(404, error_code=404,
               message=f'{item_type} {identificator} doesn\'t exist')
+
+
+def check_if_value_is_positive(key, args):
+    if args[key] and args[key][0] <= 0:
+        abort(406, error_code=406,
+              message=f'Please provide higher then zero value for {key}')
