@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+    ##### POSTGRES #####
+    db:
+        restart: always
+        build: ./db
+        volumes:
+            - ./data/pgdb:/var/lib/postgresql/data:rw
+        environment:
+            - POSTGRES_USER=concierge_dev
+            - POSTGRESS_PASSWORD=simplepass
+            - PGDATA=/var/lib/postgresql/data
+            - POSTGRES_DB=concierge_db
+        ports:
+            - 5432:5432
+
+    migration:
+        build: ./app
+        command: "python concierge/manage.py migrate"
+        depends_on:
+          - db
+
+    ##### APP #####
+    app:
+        restart: on-failure
+        user: "${uid}:${gid}"
+        build: ./app
+        tty: true
+        volumes:
+          - ./app:/usr/src/app:rw
+        ports:
+          - 8000:8000
+        command: "python concierge/manage.py runserver 0.0.0.0:8000"
+        depends_on:
+          - db
+          - migration
+          - create_superuser
+
