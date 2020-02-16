@@ -1,13 +1,11 @@
 FROM python:3.7
 
-RUN pip install django
-
 COPY . /app
 
 WORKDIR /app
 
-RUN ls -la
+RUN pip install django psycopg2
 
 EXPOSE 8000
 
-CMD python manage.py runserver 0:8000
+#CMD python manage.py runserver 0:8000

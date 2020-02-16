@@ -16,10 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-# from .views import healthcheck
-from .views import health_check
+from django.views.generic import TemplateView
+
+from .views import health_check, index, api_serializer, KeyTransferView, \
+    key_transfer_created
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('healthcheck/', health_check, name='health_check'),
+    path('api/<str:model_type>/<int:object_id>', api_serializer, name='api'),
+    path('key-transfer/', KeyTransferView.as_view(), name='key_transfer'),
+    path('thanks/', key_transfer_created, name='key_transfer_created'),
+    path('', index, name='index')
+
 ]
